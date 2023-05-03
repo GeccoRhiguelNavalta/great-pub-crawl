@@ -50,10 +50,37 @@ export const authOptions: NextAuthOptions = {
           id: user.id + "",
           email: user.email,
           name: user.name,
+          //can be any property you want readily available through session
+          randomKey: "randomKey",
         };
       },
     }),
   ],
+  //include properties to jwt token to have readily available
+  //in get session to use for querying etc
+  callbacks: {
+    session: ({ session, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          randomKey: token.randomKey,
+        },
+      };
+    },
+    jwt: ({ token, user }) => {
+      const u = user as unknown as any;
+      if (user) {
+        return {
+          ...token,
+          id: u.id,
+          randomKey: u.randomKey,
+        };
+      }
+      return token;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
