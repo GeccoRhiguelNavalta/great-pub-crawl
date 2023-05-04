@@ -11,18 +11,33 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(cuid())
-  email    String    @unique
+  id       String   @id @default(cuid())
+  email    String   @unique
   password String
   name     String?
-  pub      Pub[]
+  pubs     Pub[]    @relation("pubsByUser")
+  Review   Review[]
 }
 
 model Pub {
-  id       String    @id @default(cuid())
-  name     String
-  date     DateTime
+  id                   String   @id @default(cuid())
+  name                 String
+  date                 DateTime
+  overall_food_rating  Int
+  overall_drink_rating Int
+  overall_rating       Int
+  visitors             User[]   @relation("pubsByUser")
+  reviews              Review[] @relation("reviewsByPub")
+}
+
+model Review {
+  id       String @id @default(cuid())
+  content  String
+  food_rating  Int
+  drink_rating Int
   rating   Int
-  author   User      @relation(fields: [authorId], references: [id])
-  authorId String    
+  pub      Pub    @relation("reviewsByPub", fields: [pubId], references: [id])
+  pubId    String
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
 }
