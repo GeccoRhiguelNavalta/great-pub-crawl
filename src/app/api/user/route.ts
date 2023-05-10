@@ -1,13 +1,13 @@
-import { hash } from "bcrypt";
 import { prisma } from "../../../../lib/prisma";
+import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const { name, email, password } = await request.json();
+    const { name, email, password } = await req.json();
     const hashed = await hash(password, 12);
 
-    const created = await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         name,
         email,
@@ -15,19 +15,16 @@ export async function POST(request: Request) {
       },
     });
 
-    return (
-      NextResponse.json({
-        created: {
-          email: created.email,
-          name: created.name,
-        },
-      }),
-      { status: 201 }
-    );
-  } catch (error: any) {
+    return NextResponse.json({
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (err: any) {
     return new NextResponse(
       JSON.stringify({
-        error: "failed to create user. try again!",
+        error: err.message,
       }),
       {
         status: 500,

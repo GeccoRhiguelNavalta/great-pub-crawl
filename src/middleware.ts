@@ -1,3 +1,5 @@
 export { default } from "next-auth/middleware";
 
-// export const config = { matcher: ["/dashboard", "/app/api"] };
+export const config = {
+  matcher: ["/((?!register|api|login).*)"],
+};

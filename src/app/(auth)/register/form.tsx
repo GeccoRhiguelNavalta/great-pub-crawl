@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "../../../components/ui/button/button";
-import { Input } from "../../../components/ui/input/input";
-import { Label } from "../../../components/ui/label/label";
+import { Button } from "../../../../components/ui/button/button";
+import { Input } from "../../../../components/ui/input/input";
+import { Label } from "../../../../components/ui/label/label";
 import { signIn } from "next-auth/react";
-import { Alert } from "../../../components/ui/alert/alert";
+import { Alert } from "../../../../components/ui/alert/alert";
 
 export const RegisterForm = () => {
   const [name, setName] = useState("");
