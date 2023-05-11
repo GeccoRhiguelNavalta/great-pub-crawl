@@ -15,7 +15,7 @@ function User() {
   );
 }
 
-export default function () {
+export default function WrapUser() {
   return (
     <Layout>
       <User />

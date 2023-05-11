@@ -26,7 +26,7 @@ function MainPage() {
   );
 }
 
-export default function () {
+export default function WrapMainPage() {
   return (
     <Layout>
       <MainPage />

@@ -8,7 +8,7 @@ function Review() {
   );
 }
 
-export default function () {
+export default function WrapReview() {
   return (
     <Layout>
       <Review />
