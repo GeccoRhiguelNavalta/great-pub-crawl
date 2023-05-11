@@ -1,9 +1,6 @@
 // import { getServerSession } from "next-auth";
 // import { authOptions } from "./api/auth/[...nextauth]/route";
 // ^ for session server side
-import { User } from "./user";
-import { LoginButton, LogoutButton } from "./auth";
-
 //example how to get session server side
 // export default async function Home() {
 //   const session = await getServerSession(authOptions);
@@ -19,12 +16,20 @@ import { LoginButton, LogoutButton } from "./auth";
 //   );
 // }
 
-export default function Home() {
+import Layout from "../../components/ui/layout/layout";
+
+function MainPage() {
   return (
     <main>
-      <LoginButton />
-      <LogoutButton />
-      <User />
+      <h1>Main page</h1>
     </main>
+  );
+}
+
+export default function () {
+  return (
+    <Layout>
+      <MainPage />
+    </Layout>
   );
 }

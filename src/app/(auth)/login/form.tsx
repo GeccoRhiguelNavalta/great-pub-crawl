@@ -24,10 +24,10 @@ export const LoginForm = () => {
         redirect: false,
         email,
         password,
-        callbackUrl: "/dashboard",
+        callbackUrl: "/",
       });
       if (!res?.error) {
-        router.push("/dashboard");
+        router.push("/");
       } else {
         setError("invalid email or password");
       }
