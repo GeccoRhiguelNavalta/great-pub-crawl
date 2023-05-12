@@ -3,11 +3,11 @@ import { prisma } from "../lib/prisma";
 
 async function main() {
   const password = await hash("test", 12);
-  const alice = await prisma.user.create({
+  const test = await prisma.user.create({
     data: {
-      email: "alice@example.com",
+      email: "test@example.com",
       password: password,
-      name: "Alice",
+      name: "Test",
     },
   });
   const bob = await prisma.user.create({
@@ -22,24 +22,22 @@ async function main() {
   const pub1 = await prisma.pub.create({
     data: {
       name: "The Red Lion",
-      date: new Date(),
       overall_food_rating: 4,
       overall_drink_rating: 5,
       overall_rating: 4,
       visitors: {
-        connect: [{ id: alice.id }, { id: bob.id }],
+        connect: [{ id: test.id }, { id: bob.id }],
       },
     },
   });
   const pub2 = await prisma.pub.create({
     data: {
       name: "The Crown",
-      date: new Date(),
       overall_food_rating: 3,
       overall_drink_rating: 4,
       overall_rating: 3,
       visitors: {
-        connect: [{ id: alice.id }],
+        connect: [{ id: test.id }],
       },
     },
   });
@@ -55,7 +53,7 @@ async function main() {
         connect: { id: pub1.id },
       },
       author: {
-        connect: { id: alice.id },
+        connect: { id: test.id },
       },
     },
   });
@@ -75,7 +73,7 @@ async function main() {
   });
 
   console.log(
-    `Seeded database with users: ${alice.name}, ${bob.name}; pubs: ${pub1.name}, ${pub2.name}; reviews: ${review1.content}, ${review2.content}`
+    `Seeded database with users: ${test.name}, ${bob.name}; pubs: ${pub1.name}, ${pub2.name}; reviews: ${review1.content}, ${review2.content}`
   );
 }
 main()
