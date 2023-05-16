@@ -20,7 +20,7 @@ export async function POST(
 ) {
   const userId = params.userId;
   const json = await request.json();
-  const pubName = json.pubName;
+  const pubName = json.name;
   const pubId = await prisma.pub.findFirst({
     where: {
       name: pubName,
@@ -41,23 +41,5 @@ export async function POST(
       },
     });
     return new NextResponse(JSON.stringify(createdReview), { status: 201 });
-  } else {
-    const createdPub = await prisma.pub.create({
-      data: {
-        name: json.pubName,
-      },
-    });
-    // const createdReview = await prisma.review.create({
-    //   data: {
-    //     content: json.content as string,
-    //     food_rating: json.food_rating as number,
-    //     drink_rating: json.drink_rating as number,
-    //     rating: json.rating as number,
-    //     pubId: createdPub.id,
-    //     authorId: userId as string,
-    //   },
-    // });
-    console.log(createdPub);
-    return new NextResponse(JSON.stringify(createdPub), { status: 201 });
   }
 }

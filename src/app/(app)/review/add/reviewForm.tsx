@@ -1,17 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Button } from "../../../../components/ui/button/button";
-import { Input } from "../../../../components/ui/input/input";
-import { Label } from "../../../../components/ui/label/label";
-import { Alert } from "../../../../components/ui/alert/alert";
+import React, { FormEventHandler, useEffect, useState } from "react";
+import { Button } from "../../../../../components/ui/button/button";
+import { Input } from "../../../../../components/ui/input/input";
+import { Label } from "../../../../../components/ui/label/label";
+import { Alert } from "../../../../../components/ui/alert/alert";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../../components/ui/select/select";
+} from "../../../../../components/ui/select/select";
+import { Textarea } from "../../../../../components/ui/textarea/textarea";
 
 type PubProps = {
   date: Date;
@@ -22,7 +23,7 @@ type PubProps = {
   overall_rating: number;
 }[];
 
-export const ReviewForm = ({ userId }: { userId: string | undefined }) => {
+export const AddReviewForm = ({ userId }: { userId: string | undefined }) => {
   const [pubName, setPubName] = useState("");
   const [existingPubNames, setExistingPubNames] = useState<PubProps>([]);
   const [foodRating, setFoodRating] = useState(0);
@@ -40,7 +41,7 @@ export const ReviewForm = ({ userId }: { userId: string | undefined }) => {
   }, []);
 
   const onSubmit = async (e: React.FormEvent) => {
-    console.log("added!");
+    e.preventDefault();
     try {
       const res = await fetch(`/api/user/${userId}/review`, {
         method: "POST",
@@ -69,16 +70,13 @@ export const ReviewForm = ({ userId }: { userId: string | undefined }) => {
     }
   };
 
-  const onEdit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("edited!");
-  };
   return (
     <form onSubmit={onSubmit} className="p-12 space-y-10 w-full sm:w-[400px]">
       <div className="grid w-full items-center gap-1.5">
-        <Select>
+        <Label>Pub</Label>
+        <Select onValueChange={(name) => setPubName(name)}>
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Existing Pub Names" />
+            <SelectValue placeholder="Pick a Pub" />
           </SelectTrigger>
           <SelectContent>
             {existingPubNames.map((pubs) => {
@@ -91,24 +89,14 @@ export const ReviewForm = ({ userId }: { userId: string | undefined }) => {
           </SelectContent>
         </Select>
       </div>
-      <h1>- or -</h1>
-      <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="pubName">Pub Name</Label>
-        <Input
-          value={pubName}
-          onChange={(e) => setPubName(e.target.value)}
-          id="name"
-          type="name"
-        />
-      </div>
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="foodRating">Food Rating</Label>
         <Input
           required
           value={foodRating}
           onChange={(e) => setFoodRating(Number(e.target.value))}
-          id="name"
-          type="name"
+          id="foodRating"
+          type="foodRating"
         />
       </div>
       <div className="grid w-full items-center gap-1.5">
@@ -117,8 +105,8 @@ export const ReviewForm = ({ userId }: { userId: string | undefined }) => {
           required
           value={drinkRating}
           onChange={(e) => setDrinkRating(Number(e.target.value))}
-          id="name"
-          type="name"
+          id="drinkRating"
+          type="drinkRating"
         />
       </div>
       <div className="grid w-full items-center gap-1.5">
@@ -127,19 +115,22 @@ export const ReviewForm = ({ userId }: { userId: string | undefined }) => {
           required
           value={overallRating}
           onChange={(e) => setOverallRating(Number(e.target.value))}
-          id="name"
-          type="name"
+          id="overallRating"
+          type="overallRating"
+        />
+      </div>
+      <div className="grid w-full items-center gap-1.5">
+        <Label htmlFor="comment">Comments</Label>
+        <Textarea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          id="comment"
         />
       </div>
       {error && <Alert>{error}</Alert>}
       <div className="w-full">
         <Button className="w-full" size="sm" onClick={onSubmit}>
           Add Review
-        </Button>
-      </div>
-      <div className="w-full">
-        <Button className="w-full" size="sm" onClick={onEdit}>
-          Edit Review
         </Button>
       </div>
     </form>
