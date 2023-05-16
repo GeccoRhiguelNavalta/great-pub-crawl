@@ -26,42 +26,35 @@ function User() {
     }
   }
 
-  useEffect(() => {
-    getUser();
-  });
   return (
-    <div className="flex overflow-scroll p-5">
-      {!userDetails ? (
-        <div>Loading..</div>
-      ) : (
-        userDetails.map((user) => {
-          return (
-            <div key={user.id}>
-              <div>{user.email}</div>
-              <div>{user.name}</div>
-            </div>
-          );
-        })
-      )}
-      <div className="w-full">
-        <Button
-          className="w-full"
-          size="sm"
-          onClick={() => console.log("edit")}
-        >
+    <div className="h-screen w-screen flex justify-center items-center bg-slate-100">
+      <div className="flex flex-col justify-center items-center sm:shadow-xl pb-8 pt-12 sm:bg-white rounded-xl space-y-8">
+        {!userDetails ? (
+          <div>Loading..</div>
+        ) : (
+          userDetails.map((user) => {
+            return (
+              <div key={user.id}>
+                <div>{user.email}</div>
+                <div>{user.name}</div>
+              </div>
+            );
+          })
+        )}
+        <div className="w-full">
           <LogoutButton />
-        </Button>
-      </div>
-      <div className="w-full">
-        <Link href="/user/edit">
-          <Button
-            className="w-full"
-            size="sm"
-            onClick={() => console.log("edit")}
-          >
-            Edit
-          </Button>
-        </Link>
+        </div>
+        <div className="w-full">
+          <Link href="/user/edit">
+            <Button
+              className="w-full"
+              size="sm"
+              onClick={() => console.log("edit")}
+            >
+              Edit
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
