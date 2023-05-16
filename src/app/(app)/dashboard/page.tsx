@@ -5,7 +5,7 @@ import Link from "next/link";
 function Dashboard() {
   return (
     <div className="h-screen w-screen flex justify-center items-center bg-slate-100">
-      <div className="flex flex-col justify-center items-center sm:shadow-xl pb-8 pt-12 sm:bg-white rounded-xl space-y-8">
+      <div className="flex flex-col justify-center items-center pb-8 pt-12 w-[150px] space-y-8">
         <div className="w-full">
           <Link href="/pub/add">
             <Button className="w-full" size="sm">

@@ -28,7 +28,7 @@ function User() {
 
   useEffect(() => {
     getUser();
-  }, []);
+  });
   return (
     <div className="flex overflow-scroll p-5">
       {!userDetails ? (
