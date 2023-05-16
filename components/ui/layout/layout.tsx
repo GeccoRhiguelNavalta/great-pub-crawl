@@ -15,7 +15,7 @@ export default function Layout({ children }: LayoutProps) {
         <Link href="/">
           <FaClipboardList size={25} />
         </Link>
-        <Link href="/review">
+        <Link href="/dashboard">
           <FaRegPlusSquare size={25} />
         </Link>
         <Link href="/user">
