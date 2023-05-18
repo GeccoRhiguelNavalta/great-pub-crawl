@@ -1,5 +1,5 @@
-import Layout from "../../../../components/ui/layout/layout";
-import { Button } from "../../../../components/ui/button/button";
+import Layout from "../../components/ui/layout/layout";
+import { Button } from "../../components/ui/button/button";
 import Link from "next/link";
 
 function Dashboard() {
@@ -17,20 +17,6 @@ function Dashboard() {
           <Link href="/review/add">
             <Button className="w-full" size="sm">
               Add Review
-            </Button>
-          </Link>
-        </div>{" "}
-        <div className="w-full">
-          <Link href="/review/edit">
-            <Button className="w-full" size="sm">
-              Edit Review
-            </Button>
-          </Link>
-        </div>{" "}
-        <div className="w-full">
-          <Link href="/review/delete">
-            <Button className="w-full" size="sm">
-              Delete Review
             </Button>
           </Link>
         </div>{" "}

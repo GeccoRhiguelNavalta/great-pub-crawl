@@ -1,11 +1,11 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import Layout from "../../../../components/ui/layout/layout";
+import Layout from "../../components/ui/layout/layout";
 import { LogoutButton } from "@/app/auth";
 import { useEffect, useState } from "react";
 import { User } from "@prisma/client";
-import { Button } from "../../../../components/ui/button/button";
+import { Button } from "../../components/ui/button/button";
 import Link from "next/link";
 
 function User() {

@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Label } from "../../../../../components/ui/label/label";
-import { Input } from "../../../../../components/ui/input/input";
-import { Alert } from "../../../../../components/ui/alert/alert";
-import { Button } from "../../../../../components/ui/button/button";
+import { Label } from "../../../components/ui/label/label";
+import { Input } from "../../../components/ui/input/input";
+import { Alert } from "../../../components/ui/alert/alert";
+import { Button } from "../../../components/ui/button/button";
 
 export const PubForm = () => {
   const [pubName, setPubName] = useState("");

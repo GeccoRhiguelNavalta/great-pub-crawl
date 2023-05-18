@@ -1,18 +1,18 @@
 "use client";
 
 import React, { FormEventHandler, useEffect, useState } from "react";
-import { Button } from "../../../../../components/ui/button/button";
-import { Input } from "../../../../../components/ui/input/input";
-import { Label } from "../../../../../components/ui/label/label";
-import { Alert } from "../../../../../components/ui/alert/alert";
+import { Button } from "../../../components/ui/button/button";
+import { Input } from "../../../components/ui/input/input";
+import { Label } from "../../../components/ui/label/label";
+import { Alert } from "../../../components/ui/alert/alert";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../../../components/ui/select/select";
-import { Textarea } from "../../../../../components/ui/textarea/textarea";
+} from "../../../components/ui/select/select";
+import { Textarea } from "../../../components/ui/textarea/textarea";
 
 type PubProps = {
   date: Date;

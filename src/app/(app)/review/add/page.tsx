@@ -1,5 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import Layout from "../../../../../components/ui/layout/layout";
+import Layout from "../../../components/ui/layout/layout";
 import { AddReviewForm } from "./reviewForm";
 import { getServerSession } from "next-auth";
 

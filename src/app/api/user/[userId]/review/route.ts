@@ -6,12 +6,28 @@ export async function GET(
   { params }: { params: { userId: string } }
 ) {
   const userId = params.userId;
-  const reviews = await prisma.review.findMany({
+  const reviews: Record<any, any>[] = await prisma.review.findMany({
     where: {
       authorId: userId,
     },
   });
-  return NextResponse.json(reviews);
+  const pubIds = reviews.map((review) => review.pubId);
+  const pubs = await prisma.pub.findMany({
+    where: {
+      id: { in: pubIds },
+    },
+    select: {
+      name: true,
+      id: true,
+    },
+  });
+
+  const reviewWithPub = reviews.map((review) => {
+    const pub = pubs.find((pub) => pub.id === review.pubId);
+    return { ...review, pub: pub?.name };
+  });
+
+  return NextResponse.json(reviewWithPub);
 }
 
 export async function POST(

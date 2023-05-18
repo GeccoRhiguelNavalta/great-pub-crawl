@@ -16,7 +16,7 @@
 //   );
 // }
 
-import Layout from "../../components/ui/layout/layout";
+import Layout from "./components/ui/layout/layout";
 
 function MainPage() {
   return (

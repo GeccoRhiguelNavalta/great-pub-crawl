@@ -1,4 +1,4 @@
-import Layout from "../../../../../components/ui/layout/layout";
+import Layout from "../../../components/ui/layout/layout";
 
 function EditUser() {
   return (

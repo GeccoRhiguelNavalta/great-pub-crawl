@@ -1,11 +1,12 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import Layout from "../../../../../components/ui/layout/layout";
+import Layout from "../../../components/ui/layout/layout";
 import { getServerSession } from "next-auth";
+import List from "./list";
 
-function AllReview({ userId }: { userId: string | undefined }) {
+function AllReview({ userId }: { userId: string }) {
   return (
-    <div className="h-screen w-screen flex justify-center items-center bg-slate-100">
-      <h1>All reviews Page</h1>
+    <div className="h-screen w-screen flex flex-col p-5 overflow-y-scroll justify-center items-center bg-slate-100">
+      <List userId={userId} />
     </div>
   );
 }
