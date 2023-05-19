@@ -62,20 +62,33 @@ export default function List({ userId }: { userId: string }) {
 
   if (!edit) {
     return (
-      <div className="h-screen w-screen flex overflow-y-scroll flex-col justify-center items-center bg-slate-100">
-        <h1>List</h1>
+      <div className="h-full w-screen flex overflow-y-scroll flex-col justify-start items-center space-y-8 bg-slate-100">
         {allReviews &&
           allReviews.map((review) => {
             return (
               <div
                 key={review.id}
-                className="w-[300px] h-[500px] p-6 bg-white shadow-lg rounded grid grid-rows-4"
+                className="w-[300px] h-full p-4 bg-white shadow-lg rounded grid grid-rows-7 space-y-3"
               >
-                <div>{review.pub}</div>
-                <div>Food Rating: {review.food_rating}</div>
-                <div>Drink Rating: {review.drink_rating}</div>
-                <div>Overall Rating: {review.rating}</div>
-                <div>Comments: {review.content}</div>
+                <div className="font-bold text-center">{review.pub}</div>
+                <div className="grid grid-cols-2">
+                  Food Rating:
+                  <span className="font-light">{review.food_rating}</span>
+                </div>
+                <div className="grid grid-cols-2">
+                  Drink Rating:
+                  <span className="font-light">{review.drink_rating}</span>
+                </div>
+                <div className="grid grid-cols-2">
+                  Overall Rating:
+                  <span className="font-light">{review.rating}</span>
+                </div>
+                <div className="grid grid-row-2">
+                  <div>Comments:</div>
+                  <div className="font-light w-full h-[100px]">
+                    {review.content}{" "}
+                  </div>
+                </div>
                 <div className="w-full">
                   <Button
                     className="w-full"
@@ -101,12 +114,20 @@ export default function List({ userId }: { userId: string }) {
     );
   } else {
     return (
-      <EditForm
-        userId={userId}
-        pubName={pubName}
-        reviewId={revId}
-        setEdit={setEdit}
-      />
+      <div className="flex flex-col justify-center items-center sm:shadow-xl pb-8 pt-12 sm:bg-white rounded-xl">
+        <EditForm
+          userId={userId}
+          pubName={pubName}
+          reviewId={revId}
+          setEdit={setEdit}
+        />
+        <h1
+          className="pb-10 text-red-500 hover:text-red-700 hover:underline"
+          onClick={() => setEdit(false)}
+        >
+          Cancel
+        </h1>
+      </div>
     );
   }
 }

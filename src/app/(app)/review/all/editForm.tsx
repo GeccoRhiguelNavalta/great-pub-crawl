@@ -4,7 +4,6 @@ import { Input } from "../../../components/ui/input/input";
 import { Label } from "../../../components/ui/label/label";
 import { Alert } from "../../../components/ui/alert/alert";
 import { Textarea } from "../../../components/ui/textarea/textarea";
-import { redirect } from "next/navigation";
 
 export const EditForm = ({
   userId,
@@ -55,17 +54,20 @@ export const EditForm = ({
   return (
     <form onSubmit={onSubmit} className="p-12 space-y-10 w-full sm:w-[400px]">
       <div className="grid w-full items-center gap-1.5">
-        <Label>Pub</Label>
-        <h1>{pubName}</h1>
+        <h1 className="text-center font-bold">{pubName}</h1>
       </div>
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="foodRating">Food Rating</Label>
         <Input
           required
           value={foodRating}
-          onChange={(e) => setFoodRating(Number(e.target.value))}
+          onChange={(e) =>
+            setFoodRating(Math.min(10, Math.max(0, Number(e.target.value))))
+          }
           id="foodRating"
           type="foodRating"
+          min="0"
+          max="10"
         />
       </div>
       <div className="grid w-full items-center gap-1.5">
@@ -73,9 +75,13 @@ export const EditForm = ({
         <Input
           required
           value={drinkRating}
-          onChange={(e) => setDrinkRating(Number(e.target.value))}
+          onChange={(e) =>
+            setDrinkRating(Math.min(10, Math.max(0, Number(e.target.value))))
+          }
           id="drinkRating"
           type="drinkRating"
+          min="0"
+          max="10"
         />
       </div>
       <div className="grid w-full items-center gap-1.5">
@@ -83,9 +89,13 @@ export const EditForm = ({
         <Input
           required
           value={overallRating}
-          onChange={(e) => setOverallRating(Number(e.target.value))}
+          onChange={(e) =>
+            setOverallRating(Math.min(10, Math.max(0, Number(e.target.value))))
+          }
           id="overallRating"
           type="overallRating"
+          min="0"
+          max="10"
         />
       </div>
       <div className="grid w-full items-center gap-1.5">
@@ -99,7 +109,7 @@ export const EditForm = ({
       {error && <Alert>{error}</Alert>}
       <div className="w-full">
         <Button className="w-full" size="sm" onClick={onSubmit}>
-          Add Review
+          Edit Review
         </Button>
       </div>
     </form>

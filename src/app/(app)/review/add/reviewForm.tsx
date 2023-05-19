@@ -75,7 +75,7 @@ export const AddReviewForm = ({ userId }: { userId: string | undefined }) => {
       <div className="grid w-full items-center gap-1.5">
         <Label>Pub</Label>
         <Select onValueChange={(name) => setPubName(name)}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Pick a Pub" />
           </SelectTrigger>
           <SelectContent>
@@ -94,9 +94,13 @@ export const AddReviewForm = ({ userId }: { userId: string | undefined }) => {
         <Input
           required
           value={foodRating}
-          onChange={(e) => setFoodRating(Number(e.target.value))}
+          onChange={(e) =>
+            setFoodRating(Math.min(10, Math.max(0, Number(e.target.value))))
+          }
           id="foodRating"
           type="foodRating"
+          min="0"
+          max="10"
         />
       </div>
       <div className="grid w-full items-center gap-1.5">
@@ -104,9 +108,13 @@ export const AddReviewForm = ({ userId }: { userId: string | undefined }) => {
         <Input
           required
           value={drinkRating}
-          onChange={(e) => setDrinkRating(Number(e.target.value))}
+          onChange={(e) =>
+            setDrinkRating(Math.min(10, Math.max(0, Number(e.target.value))))
+          }
           id="drinkRating"
           type="drinkRating"
+          min="0"
+          max="10"
         />
       </div>
       <div className="grid w-full items-center gap-1.5">
@@ -114,9 +122,13 @@ export const AddReviewForm = ({ userId }: { userId: string | undefined }) => {
         <Input
           required
           value={overallRating}
-          onChange={(e) => setOverallRating(Number(e.target.value))}
+          onChange={(e) =>
+            setOverallRating(Math.min(10, Math.max(0, Number(e.target.value))))
+          }
           id="overallRating"
           type="overallRating"
+          min="0"
+          max="10"
         />
       </div>
       <div className="grid w-full items-center gap-1.5">

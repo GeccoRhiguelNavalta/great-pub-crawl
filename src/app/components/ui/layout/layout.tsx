@@ -10,7 +10,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center bg-slate-100">
-      <div className="flex p-5 md:p-10 overflow-y-scroll">{children}</div>
+      <div className="flex overflow-y-scroll">{children}</div>
       <nav className="fixed bottom-0 left-0 w-full grid grid-cols-3 place-items-center place-content-center p-5 bg-slate-300 rounded-t-lg opacity-80">
         <Link href="/">
           <FaClipboardList size={25} />

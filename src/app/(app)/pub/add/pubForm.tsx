@@ -12,7 +12,6 @@ export const PubForm = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("added pub!");
     try {
       const res = await fetch(`/api/pubs`, {
         method: "POST",
