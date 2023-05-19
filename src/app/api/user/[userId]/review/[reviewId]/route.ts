@@ -19,6 +19,7 @@ export async function PATCH(
   { params }: { params: { reviewId: string } }
 ) {
   const json = await request.json();
+  console.log(json);
   const reviewId = params.reviewId;
   const updated = await prisma.review.update({
     where: {
