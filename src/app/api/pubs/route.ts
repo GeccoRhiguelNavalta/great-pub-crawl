@@ -2,7 +2,12 @@ import { prisma } from "../../../../lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  const pubs = await prisma.pub.findMany();
+  const pubs = await prisma.pub.findMany({
+    include: {
+      reviews: true,
+      visitors: true,
+    },
+  });
   return NextResponse.json(pubs);
 }
 

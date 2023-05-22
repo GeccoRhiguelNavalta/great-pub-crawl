@@ -35,7 +35,6 @@ export async function DELETE(
   { params }: { params: { reviewId: string } }
 ) {
   const reviewId = params.reviewId;
-  console.log(reviewId);
 
   const deleted = await prisma.review.delete({
     where: {
