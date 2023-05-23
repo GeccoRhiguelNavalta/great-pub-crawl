@@ -22,9 +22,6 @@ model User {
 model Pub {
   id                   String   @id @default(cuid())
   name                 String           
-  overall_food_rating  Int?
-  overall_drink_rating Int?
-  overall_rating       Int?
   visitors             User[]   @relation("pubsByUser")
   reviews              Review[] @relation("reviewsByPub")
 }

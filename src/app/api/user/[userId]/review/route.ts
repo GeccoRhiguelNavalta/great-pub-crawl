@@ -48,12 +48,20 @@ export async function POST(
   if (pubId !== null) {
     const createdReview = await prisma.review.create({
       data: {
-        content: json.content as string,
-        food_rating: json.food_rating as number,
-        drink_rating: json.drink_rating as number,
-        rating: json.rating as number,
-        pubId: pubId.id,
-        authorId: userId as string,
+        content: json.content,
+        food_rating: json.food_rating,
+        drink_rating: json.drink_rating,
+        rating: json.rating,
+        pub: {
+          connect: {
+            id: pubId.id,
+          },
+        },
+        author: {
+          connect: {
+            id: userId,
+          },
+        },
       },
     });
     return new NextResponse(JSON.stringify(createdReview), { status: 201 });
