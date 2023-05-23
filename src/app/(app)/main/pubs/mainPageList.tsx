@@ -107,15 +107,25 @@ export default function MainPageList() {
                 <div className="font-bold text-center">{pub.name}</div>
                 <div className="grid grid-cols-2">
                   Average Food Rating:
-                  <span className="font-light">{averageFoodRating}</span>
+                  <span className="font-light">
+                    {isNaN(averageFoodRating)
+                      ? "No reviews yet"
+                      : averageFoodRating}
+                  </span>
                 </div>
                 <div className="grid grid-cols-2">
                   Average Drink Rating:
-                  <span className="font-light">{averageDrinkRating}</span>
+                  <span className="font-light">
+                    {isNaN(averageDrinkRating)
+                      ? "No reviews yet"
+                      : averageDrinkRating}
+                  </span>
                 </div>
                 <div className="grid grid-cols-2">
                   Average Overall Rating:
-                  <span className="font-light">{averageRating}</span>
+                  <span className="font-light">
+                    {isNaN(averageRating) ? "No reviews yet" : averageRating}
+                  </span>
                 </div>
                 <Button
                   onClick={() => setReviewClick(true)}
