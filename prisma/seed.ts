@@ -1,5 +1,7 @@
 import { hash } from "bcrypt";
-import { prisma } from "../lib/prisma";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 async function main() {
   const password = await hash("test", 12);
@@ -22,9 +24,6 @@ async function main() {
   const pub1 = await prisma.pub.create({
     data: {
       name: "The Red Lion",
-      overall_food_rating: 4,
-      overall_drink_rating: 5,
-      overall_rating: 4,
       visitors: {
         connect: [{ id: test.id }, { id: bob.id }],
       },
@@ -33,9 +32,6 @@ async function main() {
   const pub2 = await prisma.pub.create({
     data: {
       name: "The Crown",
-      overall_food_rating: 3,
-      overall_drink_rating: 4,
-      overall_rating: 3,
       visitors: {
         connect: [{ id: test.id }],
       },
@@ -76,10 +72,11 @@ async function main() {
     `Seeded database with users: ${test.name}, ${bob.name}; pubs: ${pub1.name}, ${pub2.name}; reviews: ${review1.content}, ${review2.content}`
   );
 }
+
 main()
-  .then(() => prisma.$disconnect())
   .catch(async (e) => {
     console.error(e);
+  })
+  .finally(async () => {
     await prisma.$disconnect();
-    process.exit(1);
   });

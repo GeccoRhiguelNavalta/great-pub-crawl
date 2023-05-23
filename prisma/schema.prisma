@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,29 +8,29 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(cuid())
-  email    String   @unique
-  password String
-  name     String?
-  pubs     Pub[]    @relation("pubsByUser")
-  Review   Review[]
+  id           String   @id @default(cuid())
+  email        String   @unique
+  password     String
+  name         String?
+  userReviews  Review[] @relation("reviewsByUser")
+  visitedPubs  Pub[]    @relation("visitors")
 }
 
 model Pub {
-  id                   String   @id @default(cuid())
-  name                 String           
-  visitors             User[]   @relation("pubsByUser")
-  reviews              Review[] @relation("reviewsByPub")
+  id           String   @id @default(cuid())
+  name         String
+  visitors     User[]   @relation("visitors")
+  reviews      Review[] @relation("reviewsByPub")
 }
 
 model Review {
-  id       String @id @default(cuid())
-  content  String
+  id           String  @id @default(cuid())
+  content      String
   food_rating  Int
   drink_rating Int
-  rating   Int
-  pub      Pub    @relation("reviewsByPub", fields: [pubId], references: [id])
-  pubId    String
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String
+  rating       Int
+  pub          Pub     @relation("reviewsByPub", fields: [pubId], references: [id])
+  pubId        String
+  author       User    @relation("reviewsByUser", fields: [authorId], references: [id])
+  authorId     String
 }

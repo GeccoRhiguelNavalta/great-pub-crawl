@@ -19,7 +19,6 @@ export async function PATCH(
   { params }: { params: { reviewId: string } }
 ) {
   const json = await request.json();
-  console.log(json);
   const reviewId = params.reviewId;
   const updated = await prisma.review.update({
     where: {
@@ -36,10 +35,31 @@ export async function DELETE(
 ) {
   const reviewId = params.reviewId;
 
-  const deleted = await prisma.review.delete({
+  const deletedReview = await prisma.review.delete({
     where: {
       id: reviewId,
     },
+    include: {
+      author: true,
+      pub: true,
+    },
   });
-  return NextResponse.json(deleted);
+
+  const pubId = deletedReview.pubId;
+  const authorId = deletedReview.authorId;
+
+  await prisma.pub.update({
+    where: {
+      id: pubId,
+    },
+    data: {
+      visitors: {
+        disconnect: {
+          id: authorId,
+        },
+      },
+    },
+  });
+
+  return NextResponse.json(deletedReview);
 }

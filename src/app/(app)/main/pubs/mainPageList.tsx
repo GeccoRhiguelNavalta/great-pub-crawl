@@ -6,9 +6,6 @@ import { useEffect, useState } from "react";
 type PubProps = {
   id: string;
   name: string;
-  overall_drink_rating: number;
-  overall_food_rating: number;
-  overall_rating: number;
   reviews: Reviews;
   visitors: Users;
 }[];
@@ -61,9 +58,9 @@ export default function MainPageList() {
       0
     );
     const ratingSum = reviews.reduce((sum, review) => sum + review.rating, 0);
-    const averageFoodRating = foodRatingSum / totalReviews;
-    const averageDrinkRating = drinkRatingSum / totalReviews;
-    const averageRating = ratingSum / totalReviews;
+    const averageFoodRating = Math.floor(foodRatingSum / totalReviews);
+    const averageDrinkRating = Math.floor(drinkRatingSum / totalReviews);
+    const averageRating = Math.floor(ratingSum / totalReviews);
     return {
       averageFoodRating,
       averageDrinkRating,

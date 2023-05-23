@@ -15,12 +15,8 @@ import {
 import { Textarea } from "../../../components/ui/textarea/textarea";
 
 type PubProps = {
-  date: Date;
   id: string;
   name: string;
-  overall_drink_rating: number;
-  overall_food_rating: number;
-  overall_rating: number;
 }[];
 
 export const AddReviewForm = ({ userId }: { userId: string | undefined }) => {
