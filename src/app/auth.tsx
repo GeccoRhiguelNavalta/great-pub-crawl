@@ -1,11 +1,15 @@
 "use client";
 
-import { signIn, signOut } from "next-auth/react";
-
-export const LoginButton = () => {
-  return <button onClick={() => signIn()}>Sign in</button>;
-};
+import { signOut } from "next-auth/react";
+import { Button } from "./components/ui/button/button";
 
 export const LogoutButton = () => {
-  return <button onClick={() => signOut()}>Sign Out</button>;
+  return (
+    <Button
+      onClick={() => signOut()}
+      className="text-red-500 hover:text-red-700 w-full"
+    >
+      Sign Out
+    </Button>
+  );
 };

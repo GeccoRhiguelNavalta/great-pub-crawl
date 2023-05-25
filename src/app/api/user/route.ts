@@ -32,3 +32,30 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function PATCH(req: Request) {
+  try {
+    const { userId, name, email, password } = await req.json();
+    const hashed = await hash(password, 12);
+    const updated = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        name: name,
+        email: email,
+        password: hashed,
+      },
+    });
+    return NextResponse.json(updated);
+  } catch (err: any) {
+    return new NextResponse(
+      JSON.stringify({
+        error: err.message,
+      }),
+      {
+        status: 500,
+      }
+    );
+  }
+}

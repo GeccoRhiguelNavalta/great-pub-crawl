@@ -3,58 +3,38 @@
 import { useSession } from "next-auth/react";
 import Layout from "../../components/ui/layout/layout";
 import { LogoutButton } from "@/app/auth";
-import { useEffect, useState } from "react";
-import { User } from "@prisma/client";
 import { Button } from "../../components/ui/button/button";
 import Link from "next/link";
 
+type Session = {
+  user: SessionUser;
+};
+
+type SessionUser = {
+  name: string;
+  email: string;
+  id: string;
+};
+
 function User() {
   const { data: session }: any = useSession();
-  const userId = session?.user?.id;
-  const [userDetails, setUserDetails] = useState<User[]>([]);
-
-  async function getUser() {
-    const res = await fetch(`/api/user/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((data) => data.json());
-    if (res) {
-      const data = [...userDetails, res];
-      setUserDetails(data);
-    }
-  }
+  const user: Session = session;
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center bg-slate-100">
-      <div className="flex flex-col justify-center items-center sm:shadow-xl pb-8 pt-12 sm:bg-white rounded-xl space-y-8">
-        {!userDetails ? (
-          <div>Loading..</div>
-        ) : (
-          userDetails.map((user) => {
-            return (
-              <div key={user.id}>
-                <div>{user.email}</div>
-                <div>{user.name}</div>
-              </div>
-            );
-          })
-        )}
-        <div className="w-full">
-          <LogoutButton />
+    <div className="h-full w-screen flex overflow-y-scroll flex-col justify-start items-center bg-slate-100">
+      <div className="w-[300px] h-full p-4 sm:bg-white sm:shadow-lg rounded grid grid-row-5 space-y-4 place-content-center place-items-center ">
+        <div className="font-bold text-center">User Details</div>
+        <h1 className="font-semibold text-center">Hey {user?.user.name}!</h1>
+        <div className="w-[200px]">
+          Email:
+          <span className="font-light pl-2">{user?.user.email}</span>
         </div>
-        <div className="w-full">
-          <Link href="/user/edit">
-            <Button
-              className="w-full"
-              size="sm"
-              onClick={() => console.log("edit")}
-            >
-              Edit
-            </Button>
-          </Link>
-        </div>
+        <Link href="/user/edit">
+          <Button className="w-[200px] flex justify-center items-center">
+            Edit
+          </Button>
+        </Link>
+        <LogoutButton />
       </div>
     </div>
   );
