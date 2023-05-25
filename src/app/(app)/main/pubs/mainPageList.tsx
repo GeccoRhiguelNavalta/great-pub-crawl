@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/app/components/ui/button/button";
+import ReviewCard from "../../../components/ui/reviewCard/reviewCard";
 import { useEffect, useState } from "react";
 
 type PubProps = {
@@ -19,8 +20,12 @@ type Reviews = {
   pub: string;
   pubId: string;
   authorId: string;
-  name: string;
+  author: AuthorProps;
 }[];
+
+type AuthorProps = {
+  name: string;
+};
 
 type Users = {
   id: string;
@@ -31,6 +36,8 @@ type Users = {
 export default function MainPageList() {
   const [allPubs, setAllPubs] = useState<PubProps>();
   const [reviewClicked, setReviewClick] = useState(false);
+  const [reviews, setReviews] = useState<Reviews>([]);
+  const [selectedPubName, setSelectedPubName] = useState("");
   const [visitorsClicked, setVisitorsClick] = useState(false);
 
   async function getAllPubs() {
@@ -68,17 +75,25 @@ export default function MainPageList() {
     };
   }
 
+  const onClickReviews = (reviews: Reviews, name: string) => {
+    setReviews(reviews);
+    setSelectedPubName(name);
+    setReviewClick(true);
+  };
+
   if (reviewClicked && !visitorsClicked) {
     return (
-      <>
-        <h1>reviews here</h1>
+      <div className="h-full w-screen flex overflow-y-scroll flex-col justify-start items-center space-y-8 bg-slate-100">
         <button
           onClick={() => setReviewClick(false)}
           className="text-red-500 hover:text-red-700 hover:underline"
         >
           Back
         </button>
-      </>
+        {reviews.map((review) => (
+          <ReviewCard reviews={review} name={selectedPubName} />
+        ))}
+      </div>
     );
   } else if (!reviewClicked && visitorsClicked) {
     return (
@@ -128,7 +143,7 @@ export default function MainPageList() {
                   </span>
                 </div>
                 <Button
-                  onClick={() => setReviewClick(true)}
+                  onClick={() => onClickReviews(pub.reviews, pub.name)}
                   className="grid grid-cols-2"
                 >
                   Reviews:

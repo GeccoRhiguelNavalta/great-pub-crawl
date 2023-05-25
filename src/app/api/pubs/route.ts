@@ -4,11 +4,38 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   const pubs = await prisma.pub.findMany({
     include: {
-      reviews: true,
-      visitors: true,
+      reviews: {
+        include: {
+          author: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
+      visitors: {
+        select: {
+          name: true,
+        },
+      },
     },
   });
-  return NextResponse.json(pubs);
+
+  const pubsWithAuthorName = pubs.map((pub) => {
+    const reviewsWithAuthorName = pub.reviews.map((review) => {
+      return {
+        ...review,
+        authorName: review.author?.name || "Unknown",
+      };
+    });
+
+    return {
+      ...pub,
+      reviews: reviewsWithAuthorName,
+    };
+  });
+
+  return NextResponse.json(pubsWithAuthorName);
 }
 
 export async function POST(request: Request) {
