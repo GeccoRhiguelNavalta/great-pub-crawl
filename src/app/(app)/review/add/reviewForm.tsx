@@ -67,7 +67,7 @@ export const AddReviewForm = ({ userId }: { userId: string | undefined }) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="p-12 space-y-10 w-full sm:w-[400px]">
+    <form onSubmit={onSubmit} className="p-12 space-y-5 w-full sm:w-[400px]">
       <div className="grid w-full items-center gap-1.5">
         <Label>Pub</Label>
         <Select onValueChange={(name) => setPubName(name)}>

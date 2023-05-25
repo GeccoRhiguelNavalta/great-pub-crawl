@@ -21,7 +21,7 @@ function User() {
   const user: Session = session;
 
   return (
-    <div className="h-full w-screen flex overflow-y-scroll flex-col justify-start items-center bg-slate-100">
+    <div className="h-[580px] md:h-[600px] lg:h-[750px] w-full flex flex-col p-3 justify-center overflow-y-scroll space-y-6 items-center bg-slate-100">
       <div className="w-[300px] h-full p-4 sm:bg-white sm:shadow-lg rounded grid grid-row-5 space-y-4 place-content-center place-items-center ">
         <div className="font-bold text-center">User Details</div>
         <h1 className="font-semibold text-center">Hey {user?.user.name}!</h1>

@@ -40,12 +40,11 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const json = await request.json();
-  const pubName = json.name;
+  const { name } = await request.json();
 
   const existingPub = await prisma.pub.findFirst({
     where: {
-      name: pubName.name,
+      name: name,
     },
   });
 
@@ -54,11 +53,12 @@ export async function POST(request: Request) {
       JSON.stringify({ error: "This pub already exists." }),
       { status: 400 }
     );
+  } else {
+    const created = await prisma.pub.create({
+      data: {
+        name: name,
+      },
+    });
+    return new NextResponse(JSON.stringify(created), { status: 201 });
   }
-
-  const created = await prisma.pub.create({
-    data: json,
-  });
-
-  return new NextResponse(JSON.stringify(created), { status: 201 });
 }

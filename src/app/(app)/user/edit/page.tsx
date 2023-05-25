@@ -19,6 +19,10 @@ function EditUser() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (name.trim() === "" || email.trim() === "" || password.trim() === "") {
+      setError("Please fill out all fields.");
+      return;
+    }
     try {
       const res = await fetch(`/api/user`, {
         method: "PATCH",
@@ -46,7 +50,7 @@ function EditUser() {
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center bg-slate-100">
+    <div className="h-[580px] md:h-[600px] lg:h-[750px] w-full flex flex-col p-3 justify-center overflow-y-scroll space-y-3 items-center bg-slate-100">
       <form onSubmit={onSubmit} className="p-12 space-y-10 w-full sm:w-[400px]">
         <div className="grid w-full items-center gap-1.5">
           <h1 className="text-center font-bold">Edit Your Details</h1>
@@ -90,7 +94,7 @@ function EditUser() {
         </div>
       </form>
       <Link href="/user">
-        <h1 className="pb-10 text-red-500 hover:text-red-700 hover:underline">
+        <h1 className="text-red-500 hover:text-red-700 hover:underline">
           Back
         </h1>
       </Link>

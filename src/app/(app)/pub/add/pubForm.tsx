@@ -24,6 +24,7 @@ export const PubForm = () => {
       });
       if (res.ok) {
         setPubName("");
+        setError("");
       } else {
         setError((await res.json()).error);
       }
