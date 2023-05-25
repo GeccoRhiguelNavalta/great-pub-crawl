@@ -28,9 +28,8 @@ type AuthorProps = {
 };
 
 type Users = {
-  id: string;
-  email: string;
   name: string;
+  id: string;
 }[];
 
 export default function MainPageList() {
@@ -39,6 +38,7 @@ export default function MainPageList() {
   const [reviews, setReviews] = useState<Reviews>([]);
   const [selectedPubName, setSelectedPubName] = useState("");
   const [visitorsClicked, setVisitorsClick] = useState(false);
+  const [visitors, setVisitors] = useState<Users>([]);
 
   async function getAllPubs() {
     const pubs = await fetch("/api/pubs", {
@@ -81,6 +81,12 @@ export default function MainPageList() {
     setReviewClick(true);
   };
 
+  const onClickVisitors = (visitors: Users, name: string) => {
+    setVisitors(visitors);
+    setSelectedPubName(name);
+    setVisitorsClick(true);
+  };
+
   if (reviewClicked && !visitorsClicked) {
     return (
       <div className="h-full w-screen flex overflow-y-scroll flex-col justify-start items-center space-y-8 bg-slate-100">
@@ -97,15 +103,25 @@ export default function MainPageList() {
     );
   } else if (!reviewClicked && visitorsClicked) {
     return (
-      <>
-        <h1>visitors here</h1>
+      <div className="w-[300px] h-full p-4 bg-white shadow-lg rounded flex flex-col">
+        <div className="font-bold text-center">{selectedPubName}</div>
+        <h1 className="font-medium text-center pb-10">
+          Visited and reviewed by:
+        </h1>
+        <div className="pb-10 overflow-y-scroll">
+          {visitors.map((visitor) => (
+            <div key={visitor.id} className="font-light text-center">
+              {visitor.name}
+            </div>
+          ))}
+        </div>
         <button
           onClick={() => setVisitorsClick(false)}
           className="text-red-500 hover:text-red-700 hover:underline"
         >
           Back
         </button>
-      </>
+      </div>
     );
   } else {
     return (
@@ -150,7 +166,7 @@ export default function MainPageList() {
                   <span className="font-light">{pub.reviews.length}</span>
                 </Button>
                 <Button
-                  onClick={() => setVisitorsClick(true)}
+                  onClick={() => onClickVisitors(pub.visitors, pub.name)}
                   className="grid grid-cols-2"
                 >
                   Visitors:

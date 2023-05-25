@@ -16,6 +16,7 @@ export async function GET(request: Request) {
       visitors: {
         select: {
           name: true,
+          id: true,
         },
       },
     },
