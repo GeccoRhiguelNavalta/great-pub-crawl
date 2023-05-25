@@ -91,7 +91,7 @@ export default function MainPageList() {
           Back
         </button>
         {reviews.map((review) => (
-          <ReviewCard reviews={review} name={selectedPubName} />
+          <ReviewCard key={review.id} reviews={review} name={selectedPubName} />
         ))}
       </div>
     );
