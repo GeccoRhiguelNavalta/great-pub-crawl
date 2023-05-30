@@ -5,11 +5,15 @@ export async function GET(
   request: Request,
   { params }: { params: { pubsId: string } }
 ) {
-  const pubId = params.pubsId;
-  const reviews = await prisma.review.findMany({
-    where: {
-      pubId: pubId,
-    },
-  });
-  return NextResponse.json(reviews);
+  try {
+    const pubId = params.pubsId;
+    const reviews = await prisma.review.findMany({
+      where: {
+        pubId: pubId,
+      },
+    });
+    return NextResponse.json(reviews);
+  } catch (error) {
+    console.log(error);
+  }
 }

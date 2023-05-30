@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "../../components/ui/button/button";
 import { Input } from "../../components/ui/input/input";
 import { Label } from "../../components/ui/label/label";
@@ -10,9 +10,6 @@ import { Alert } from "../../components/ui/alert/alert";
 
 export const LoginForm = () => {
   const router = useRouter();
-  //get params call back url in new nextjs
-  // const searchParams = useSearchParams();
-  // const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
