@@ -12,6 +12,7 @@ export const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const registerFailureMsg = "Failed to register";
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +31,7 @@ export const RegisterForm = () => {
       }
     } catch (error: any) {
       setError(error?.message);
+      console.log("Failed to register", error);
     }
   };
   return (
@@ -64,7 +66,7 @@ export const RegisterForm = () => {
           type="password"
         />
       </div>
-      {error && <Alert>{error}</Alert>}
+      {error && <Alert>{registerFailureMsg}</Alert>}
       <div className="w-full">
         <Button className="w-full" size="sm">
           Register

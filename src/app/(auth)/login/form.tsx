@@ -12,7 +12,8 @@ export const LoginForm = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | any>(null);
+  const loginFailureMsg = "invalid email or password";
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,9 +27,12 @@ export const LoginForm = () => {
       if (!res?.error) {
         router.push("/");
       } else {
-        setError("invalid email or password");
+        setError(res);
+        console.log("Failed to login, error: ", error);
       }
-    } catch (error: any) {}
+    } catch (error: any) {
+      console.log("Failed to login", error);
+    }
   };
   return (
     <form onSubmit={onSubmit} className="p-12 space-y-10 w-full sm:w-[400px]">
@@ -52,7 +56,7 @@ export const LoginForm = () => {
           type="password"
         />
       </div>
-      {error && <Alert>{error}</Alert>}
+      {error && <Alert>{loginFailureMsg}</Alert>}
       <div className="w-full">
         <Button className="w-full" size="sm">
           Login
